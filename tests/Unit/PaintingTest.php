@@ -7,9 +7,9 @@ use App\Models\Painting;
 
 class PaintingTest extends TestCase
 {
+
     /**
-     * A basic unit test example.
-     *
+     * This simple test will check to see if the Painting Model exists
      * @return void
      */
     public function testIfPaintingModelExists()

@@ -21,7 +21,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/paintings',\App\Http\Controllers\PaintingController::class);
+Route::resource('/paintings',\App\Http\Controllers\PaintingController::class)->middleware(['auth']);
 Route::resource('/painting-images', \App\Http\Controllers\PaintingImagesController::class);
 
 require __DIR__.'/auth.php';

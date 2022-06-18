@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Painting;
+use App\Models\User;
 
 class PaintingTest extends TestCase
 {
@@ -39,6 +40,14 @@ class PaintingTest extends TestCase
      */
     public function test_if_the_painting_resource_index_route_works()
     {
+
+        $user = User::factory()->create();
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
         $response = $this->get('/paintings');
 
         $response->assertStatus(200);

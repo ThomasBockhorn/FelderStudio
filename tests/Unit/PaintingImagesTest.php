@@ -19,6 +19,11 @@ class PaintingImagesTest extends TestCase
         $this->assertInstanceOf(PaintingImages::class, $paintingImages);
     }
 
+
+    /**
+     * This tests checks if the painting images migration works
+     * @return void
+     */
     public function test_to_see_if_painting_images_database_has_10_entries()
     {
         $this->seed();

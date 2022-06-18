@@ -63,15 +63,21 @@ class PaintingTest extends TestCase
 
     }
 
+
+    /**
+     * This tests will check if a painting entry can be added
+     * @return void
+     */
     public function test_to_see_if_a_painting_entry_can_be_added()
     {
         $entry = [ "title" => "Test Title", "description" => "Test description"];
 
         $user = User::factory()->create();
 
-        $this->actingAs($user)
-            ->post('/paintings', $entry, ['Accept' => 'application/json'])
-            ->assertStatus(200);
+        $this->actingAs($user);
+        $this->post('/paintings', $entry, ['Accept' => 'application/json']);
+        $this->assertDatabaseCount("paintings",1);
+
     }
 
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePaintingImagesRequest;
 use App\Http\Requests\UpdatePaintingImagesRequest;
-use App\Models\PaintingImages;
+use App\Models\PaintingImage;
 use Illuminate\Http\Response;
 
 class PaintingImagesController extends Controller
@@ -43,10 +43,10 @@ class PaintingImagesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Http\Response
      */
-    public function show(PaintingImages $paintingImages)
+    public function show(PaintingImage $paintingImages)
     {
         //
     }
@@ -54,10 +54,10 @@ class PaintingImagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Http\Response
      */
-    public function edit(PaintingImages $paintingImages)
+    public function edit(PaintingImage $paintingImages)
     {
         //
     }
@@ -66,10 +66,10 @@ class PaintingImagesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdatePaintingImagesRequest  $request
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePaintingImagesRequest $request, PaintingImages $paintingImages)
+    public function update(UpdatePaintingImagesRequest $request, PaintingImage $paintingImages)
     {
         //
     }
@@ -77,10 +77,10 @@ class PaintingImagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaintingImages $paintingImages)
+    public function destroy(PaintingImage $paintingImages)
     {
         //
     }

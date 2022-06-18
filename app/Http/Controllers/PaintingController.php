@@ -38,7 +38,7 @@ class PaintingController extends Controller
      */
     public function store(StorePaintingRequest $request)
     {
-
+        Painting::create($request->all());
     }
 
     /**

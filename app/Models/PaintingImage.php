@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaintingImages extends Model
+class PaintingImage extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [];
 
     public function painting()
     {

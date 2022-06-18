@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\PaintingImages;
+use App\Models\PaintingImage;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class PaintingImagesPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, PaintingImages $paintingImages)
+    public function view(User $user, PaintingImage $paintingImages)
     {
         //
     }
@@ -48,10 +48,10 @@ class PaintingImagesPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, PaintingImages $paintingImages)
+    public function update(User $user, PaintingImage $paintingImages)
     {
         //
     }
@@ -60,10 +60,10 @@ class PaintingImagesPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, PaintingImages $paintingImages)
+    public function delete(User $user, PaintingImage $paintingImages)
     {
         //
     }
@@ -72,10 +72,10 @@ class PaintingImagesPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, PaintingImages $paintingImages)
+    public function restore(User $user, PaintingImage $paintingImages)
     {
         //
     }
@@ -84,10 +84,10 @@ class PaintingImagesPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PaintingImages  $paintingImages
+     * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, PaintingImages $paintingImages)
+    public function forceDelete(User $user, PaintingImage $paintingImages)
     {
         //
     }

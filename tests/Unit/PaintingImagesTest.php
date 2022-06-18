@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\PaintingImages;
+use App\Models\User;
 use Tests\TestCase;
 
 class PaintingImagesTest extends TestCase
@@ -33,6 +34,13 @@ class PaintingImagesTest extends TestCase
 
     public function test_to_see_if_painting_images_resource_index_works()
     {
+        $user = User::factory()->create();
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
         $response = $this->get('/painting-images');
 
         $response->assertStatus(200);

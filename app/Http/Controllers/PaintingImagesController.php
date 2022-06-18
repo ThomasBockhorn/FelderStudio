@@ -16,10 +16,7 @@ class PaintingImagesController extends Controller
      */
     public function index()
     {
-        $response = new Response();
-        $response->setStatusCode(200);
 
-        return $response;
     }
 
     /**

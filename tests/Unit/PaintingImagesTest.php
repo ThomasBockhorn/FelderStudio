@@ -32,18 +32,29 @@ class PaintingImagesTest extends TestCase
         $this->assertDatabaseCount("painting_images", 10);
     }
 
+
+    /**
+     * This test will check if the painting-images/ route works
+     * @return void
+     */
     public function test_to_see_if_painting_images_resource_index_works()
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        $this->actingAs($user)
+            ->get('/paintings-images/')
+            ->assertStatus(200);
 
-        $response = $this->get('/painting-images');
+    }
 
-        $response->assertStatus(200);
+    public function test_will_check_to_see_if_painting_images_create_route_works()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get('/paintings-images/create')
+            ->assertStatus(200);
+
     }
 
 

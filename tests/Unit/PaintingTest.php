@@ -43,28 +43,24 @@ class PaintingTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
-
-        $response = $this->get('/paintings');
-
-        $response->assertStatus(200);
+        $this->actingAs($user)
+            ->get('/paintings/')
+            ->assertStatus(200);
     }
 
+
+    /**
+     * This test will check if the painting/create route works
+     * @return void
+     */
     public function test_to_see_if_a_user_can_access_the_create_route()
     {
-        $user = User::factory()->create();
+       $user = User::factory()->create();
 
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        $this->actingAs($user)
+                ->get('/paintings/create')
+                ->assertStatus(200);
 
-        $response = $this->get('/paintings/create');
-
-        $response->assertStatus(200);
     }
 
 

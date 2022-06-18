@@ -13,6 +13,6 @@ class Painting extends Model
 
     public function paintingImages()
     {
-        $this->hasMany(PaintingImages::class);
+        return $this->hasMany(PaintingImages::class);
     }
 }

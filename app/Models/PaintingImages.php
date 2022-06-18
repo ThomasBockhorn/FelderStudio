@@ -13,6 +13,6 @@ class PaintingImages extends Model
 
     public function painting()
     {
-        $this->belongsTo(Painting::class);
+        return $this->belongsTo(Painting::class);
     }
 }

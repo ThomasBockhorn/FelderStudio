@@ -42,7 +42,7 @@ class PaintingImagesTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->get('/paintings-images/')
+            ->get('/painting-images/')
             ->assertStatus(200);
 
     }
@@ -52,7 +52,7 @@ class PaintingImagesTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->get('/paintings-images/create')
+            ->get('/painting-images/create')
             ->assertStatus(200);
 
     }

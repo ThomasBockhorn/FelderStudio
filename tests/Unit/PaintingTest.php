@@ -63,5 +63,16 @@ class PaintingTest extends TestCase
 
     }
 
+    public function test_to_see_if_a_painting_entry_can_be_added()
+    {
+        $entry = [ "title" => "Test Title", "description" => "Test description"];
+
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post('/paintings', $entry, ['Accept' => 'application/json'])
+            ->assertStatus(200);
+    }
+
 
 }

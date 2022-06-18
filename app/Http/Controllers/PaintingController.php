@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePaintingRequest;
 use App\Http\Requests\UpdatePaintingRequest;
 use App\Models\Painting;
+use Couchbase\View;
 use Illuminate\Http\Response;
 
 class PaintingController extends Controller
@@ -37,7 +38,7 @@ class PaintingController extends Controller
      */
     public function store(StorePaintingRequest $request)
     {
-        //
+
     }
 
     /**

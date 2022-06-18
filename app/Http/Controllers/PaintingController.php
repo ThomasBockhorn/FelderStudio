@@ -29,7 +29,10 @@ class PaintingController extends Controller
      */
     public function create()
     {
-        //
+        $response = new Response();
+        $response->setStatusCode(200);
+
+        return $response;
     }
 
     /**

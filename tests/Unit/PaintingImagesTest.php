@@ -30,4 +30,13 @@ class PaintingImagesTest extends TestCase
 
         $this->assertDatabaseCount("painting_images", 10);
     }
+
+    public function test_to_see_if_painting_images_resource_index_works()
+    {
+        $response = $this->get('/painting-images');
+
+        $response->assertStatus(200);
+    }
+
+
 }

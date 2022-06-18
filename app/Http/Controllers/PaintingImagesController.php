@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePaintingImagesRequest;
 use App\Http\Requests\UpdatePaintingImagesRequest;
 use App\Models\PaintingImages;
+use Illuminate\Http\Response;
 
 class PaintingImagesController extends Controller
 {
@@ -15,7 +16,10 @@ class PaintingImagesController extends Controller
      */
     public function index()
     {
-        //
+        $response = new Response();
+        $response->setStatusCode(200);
+
+        return $response;
     }
 
     /**

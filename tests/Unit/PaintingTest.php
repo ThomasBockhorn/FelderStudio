@@ -131,5 +131,16 @@ class PaintingTest extends TestCase
         $this->assertDatabaseHas("paintings", $this->editedSampleData());
     }
 
+    public function test_to_see_if_user_can_delete_a_painting_entry():void
+    {
+        $this->createUser();
+
+        $this->post('/paintings', $this->sampleData(), ['Accept' => 'application/json']);
+
+        $this->delete('/paintings/1', $this->editedSampleData());
+
+        $this->assertDatabaseMissing("paintings", $this->sampleData());
+    }
+
 
 }

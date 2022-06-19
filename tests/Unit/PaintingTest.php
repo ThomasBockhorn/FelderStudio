@@ -2,15 +2,15 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use phpDocumentor\Reflection\Types\Void_;
 use Tests\TestCase;
 use App\Models\Painting;
 use App\Models\User;
 
 class PaintingTest extends TestCase
 {
-    use RefreshDatabase;
+    use  DatabaseMigrations;
 
 
     /**
@@ -33,6 +33,16 @@ class PaintingTest extends TestCase
     protected function sampleData(): array
     {
         return [ "title" => "Test Title", "description" => "Test description"];
+    }
+
+
+    /**
+     * This function returns an edited sample data for the tests
+     * @return string[]
+     */
+    protected function editedSampleData(): array
+    {
+        return ["title" => "Edited Test Title", "description" => "Edited Test Description"];
     }
 
     /**
@@ -102,6 +112,23 @@ class PaintingTest extends TestCase
 
         $this->assertDatabaseCount("paintings",1);
 
+    }
+
+
+    /**
+     * This test will check to see if a painting entry can be edited
+     * @return void
+     */
+    public function test_to_see_if_a_user_can_edit_a_painting_entry(): void
+    {
+
+        $this->createUser();
+
+        $this->post('/paintings', $this->sampleData(), ['Accept' => 'application/json']);
+
+        $this->put('/paintings/1', $this->editedSampleData(), ['Accept' => 'application/json']);
+
+        $this->assertDatabaseHas("paintings", $this->editedSampleData());
     }
 
 

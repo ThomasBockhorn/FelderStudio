@@ -60,7 +60,7 @@ class PaintingController extends Controller
      */
     public function edit(Painting $painting)
     {
-        //
+
     }
 
     /**
@@ -72,7 +72,8 @@ class PaintingController extends Controller
      */
     public function update(UpdatePaintingRequest $request, Painting $painting)
     {
-        //
+        $painting->update($request->all());
+
     }
 
     /**

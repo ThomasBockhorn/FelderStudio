@@ -42,6 +42,8 @@ class PaintingImagesController extends Controller
 
         $paintingImage->painting_id = $request->painting_id;
 
+        $paintingImage->save();
+
         $image = time() . '.' . $request->filename->extension();
 
         $request->filename->move(public_path('images'), $image);

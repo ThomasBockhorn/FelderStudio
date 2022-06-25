@@ -84,13 +84,13 @@ class PaintingImagesTest extends TestCase
 
         $painting = Painting::factory(1)->create()->first();
 
-        // dd($imageFile);
-
         $response = $this->post(
             '/painting-images',
             ['filename' => $imageFile, 'painting_id' => $painting->id],
             ['Accept' => 'application/json']
         );
+
+        $this->assertDatabaseCount('painting_images', 1);
 
         $response->assertStatus(200);
     }

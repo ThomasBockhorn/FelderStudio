@@ -5,9 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePaintingImagesRequest;
 use App\Http\Requests\UpdatePaintingImagesRequest;
 use App\Models\PaintingImage;
+use App\Services\ImageDatabaseService;
+use App\Services\ImageUploadService;
 
 class PaintingImagesController extends Controller
 {
+    private ImageUploadService $fileService;
+    private ImageDatabaseService $databaseService;
+
+    /**
+     * @param ImageUploadService $file
+     */
+    public function __construct(ImageUploadService $file, ImageDatabaseService $databaseService)
+    {
+        $this->fileService = $file;
+        $this->databaseService = $databaseService;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,6 @@ class PaintingImagesController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -36,17 +50,9 @@ class PaintingImagesController extends Controller
      */
     public function store(StorePaintingImagesRequest $request)
     {
-        $paintingImage = new PaintingImage();
+        $this->databaseService->ImageReferenceToDatabase($request);
 
-        $paintingImage->filename = $request->filename;
-
-        $paintingImage->painting_id = $request->painting_id;
-
-        $paintingImage->save();
-
-        $image = time() . '.' . $request->filename->extension();
-
-        $request->filename->move(public_path('images'), $image);
+        $this->fileService->imageUpload($request, 'images');
     }
 
     /**

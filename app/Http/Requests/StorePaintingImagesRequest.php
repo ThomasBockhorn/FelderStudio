@@ -3,7 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * @property mixed $project_id
+ * @property mixed $image
+ * @property mixed $filename
+ * @property mixed $painting_id
+ */
 class StorePaintingImagesRequest extends FormRequest
 {
     /**
@@ -11,9 +18,9 @@ class StorePaintingImagesRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -21,10 +28,11 @@ class StorePaintingImagesRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            "filename" => ["image", "nullable", "max:1999", "mimes:jpeg,png,jpg,gif,svg"],
+            "painting_id" => ["integer", "nullable"]
         ];
     }
 }

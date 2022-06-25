@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('painting_images', function (Blueprint $table) {
             $table->id();
             $table->string('filename');
-            $table->bigInteger('painting_id')->unsigned();
+            $table->bigInteger('painting_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('painting_id')->references('id')->on('paintings')->onDelete('cascade');

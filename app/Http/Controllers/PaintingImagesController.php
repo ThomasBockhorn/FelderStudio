@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePaintingImagesRequest;
 use App\Http\Requests\UpdatePaintingImagesRequest;
 use App\Models\PaintingImage;
-use Illuminate\Http\Response;
 
 class PaintingImagesController extends Controller
 {
@@ -37,7 +36,15 @@ class PaintingImagesController extends Controller
      */
     public function store(StorePaintingImagesRequest $request)
     {
-        //
+        $paintingImage = new PaintingImage();
+
+        $paintingImage->filename = $request->filename;
+
+        $paintingImage->painting_id = $request->painting_id;
+
+        $image = time() . '.' . $request->filename->extension();
+
+        $request->filename->move(public_path('images'), $image);
     }
 
     /**

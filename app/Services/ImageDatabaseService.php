@@ -7,7 +7,6 @@ namespace App\Services;
 
 use App\Http\Requests\PaintingImagesRequest;
 use App\Models\PaintingImage;
-use Ramsey\Uuid\Type\Integer;
 
 class ImageDatabaseService
 {
@@ -38,21 +37,17 @@ class ImageDatabaseService
     }
 
     /**
-     * This function updates StorePainting
+     * This function updates PaintingImage reference in database
      * @param PaintingImagesRequest $request
-     * @param Integer $index
      * @return void
      */
     public function ImageReferenceToDatabaseUpdate(
         PaintingImagesRequest $request,
-        Integer $index
-    ): void {
-        $this->paintingImage->findOrFail($index);
-
-        $this->paintingImage->filename = $request->filename;
-
-        $this->paintingImage->painting_id = $request->painting_id;
-
-        $this->paintingImage->save();
+    ): void
+    {
+        $paintingImage = $this->paintingImage->where('painting_id', $request->painting_id)->first();
+        $paintingImage->update([
+            "filename" => $request->filename
+        ]);
     }
 }

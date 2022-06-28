@@ -80,15 +80,11 @@ class PaintingImagesController extends Controller
      * Update the specified resource in storage.
      *
      * @param PaintingImagesRequest $request
-     * @param PaintingImage $paintingImage
      * @return \Illuminate\Http\Response
      */
-    public function update(PaintingImagesRequest $request, PaintingImage $paintingImage)
+    public function update(PaintingImagesRequest $request)
     {
-        $paintingImage = $paintingImage->where('painting_id', $request->painting_id)->first();
-        $paintingImage->update([
-            "filename" => $request->filename
-        ]);
+        $this->databaseService->ImageReferenceToDatabaseUpdate($request);
 
         $this->fileService->imageUpload($request, 'images');
     }

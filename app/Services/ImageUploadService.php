@@ -5,18 +5,18 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Http\Requests\StorePaintingImagesRequest;
+use App\Http\Requests\PaintingImagesRequest;
 
 class ImageUploadService
 {
 
     /**
      * This method with upload an image file
-     * @param StorePaintingImagesRequest $request
+     * @param PaintingImagesRequest $request
      * @param String $location
      * @return void
      */
-    public function imageUpload(StorePaintingImagesRequest $request, string $location): void
+    public function imageUpload(PaintingImagesRequest $request, string $location): void
     {
         $image = time() . '.' . $request->filename->extension();
 

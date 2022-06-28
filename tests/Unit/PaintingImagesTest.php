@@ -64,7 +64,7 @@ class PaintingImagesTest extends TestCase
 
 
     /**
-     * This test will see the create painting images route works
+     * This test will see the create/painting-images route works
      * @return void
      */
     public function test_will_check_to_see_if_painting_images_create_route_works(): void
@@ -76,6 +76,11 @@ class PaintingImagesTest extends TestCase
             ->assertStatus(200);
     }
 
+
+    /**
+     * This test will see if the user can add a painting image to database and images/
+     * @return void
+     */
     public function test_will_check_if_a_user_can_add_images_to_painting_images(): void
     {
         $this->createUser();
@@ -91,6 +96,31 @@ class PaintingImagesTest extends TestCase
         );
 
         $this->assertDatabaseCount('painting_images', 1);
+
+        $response->assertStatus(200);
+    }
+
+    public function test_to_see_if_a_user_can_edit_a_painting_image(): void
+    {
+        $this->createUser();
+
+        $imageFile = UploadedFile::fake()->image('testImage.jpg');
+
+        $painting = Painting::factory(1)->create()->first();
+
+        $this->post(
+            '/painting-images',
+            ['filename' => $imageFile, 'painting_id' => $painting->id],
+            ['Accept' => 'application/json']
+        );
+
+        $imageFile2 = UploadedFile::fake()->image('testImage2.jpg');
+
+        $response = $this->put(
+            '/painting-images/1',
+            ['filename' => $imageFile2, 'painting_id' => $painting->id],
+            ['Accept' => 'application/json']
+        );
 
         $response->assertStatus(200);
     }

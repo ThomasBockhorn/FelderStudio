@@ -15,6 +15,9 @@ class Painting extends Model
 
     protected $fillable = ['title', 'description'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function paintingImage()
     {
         return $this->hasMany(PaintingImage::class);

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePaintingImagesRequest;
-use App\Http\Requests\UpdatePaintingImagesRequest;
+use App\Http\Requests\PaintingImagesRequest;
 use App\Models\PaintingImage;
 use App\Services\ImageDatabaseService;
 use App\Services\ImageUploadService;
@@ -13,15 +12,16 @@ class PaintingImagesController extends Controller
     private ImageUploadService $fileService;
     private ImageDatabaseService $databaseService;
 
+
     /**
      * @param ImageUploadService $file
+     * @param ImageDatabaseService $databaseService
      */
     public function __construct(ImageUploadService $file, ImageDatabaseService $databaseService)
     {
         $this->fileService = $file;
         $this->databaseService = $databaseService;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -45,10 +45,10 @@ class PaintingImagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePaintingImagesRequest  $request
+     * @param PaintingImagesRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePaintingImagesRequest $request)
+    public function store(PaintingImagesRequest $request)
     {
         $this->databaseService->ImageReferenceToDatabase($request);
 
@@ -74,19 +74,23 @@ class PaintingImagesController extends Controller
      */
     public function edit(PaintingImage $paintingImages)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePaintingImagesRequest  $request
-     * @param  \App\Models\PaintingImage  $paintingImages
+     * @param PaintingImagesRequest $request
+     * @param PaintingImage $paintingImage
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePaintingImagesRequest $request, PaintingImage $paintingImages)
+    public function update(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
-        //
+        $paintingImage = $paintingImage->where('painting_id', $request->painting_id)->first();
+        $paintingImage->update([
+            "filename" => $request->filename
+        ]);
+
+        $this->fileService->imageUpload($request, 'images');
     }
 
     /**

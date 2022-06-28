@@ -17,6 +17,9 @@ class PaintingImage extends Model
 
     protected $fillable = ["filename", "painting_id"];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function painting()
     {
         return $this->belongsTo(Painting::class);

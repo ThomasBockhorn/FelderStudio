@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePaintingRequest;
-use App\Http\Requests\UpdatePaintingRequest;
+use App\Http\Requests\PaintingRequest;
 use App\Models\Painting;
 
 class PaintingController extends Controller
@@ -31,10 +30,10 @@ class PaintingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePaintingRequest  $request
+     * @param \App\Http\Requests\PaintingRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePaintingRequest $request)
+    public function store(PaintingRequest $request)
     {
         Painting::create($request->all());
     }
@@ -64,14 +63,13 @@ class PaintingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePaintingRequest  $request
-     * @param  \App\Models\Painting  $painting
+     * @param PaintingRequest $request
+     * @param \App\Models\Painting $painting
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePaintingRequest $request, Painting $painting)
+    public function update(PaintingRequest $request, Painting $painting)
     {
         $painting->update($request->all());
-
     }
 
     /**

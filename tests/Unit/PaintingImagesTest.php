@@ -123,6 +123,8 @@ class PaintingImagesTest extends TestCase
         );
 
         $response->assertStatus(200);
+
+        $this->assertDatabaseCount('painting_images', 1);
     }
 
 

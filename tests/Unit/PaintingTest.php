@@ -2,11 +2,10 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Models\Painting;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class PaintingTest extends TestCase
 {
@@ -137,7 +136,7 @@ class PaintingTest extends TestCase
 
         $this->post('/paintings', $this->sampleData(), ['Accept' => 'application/json']);
 
-        $this->delete('/paintings/1', $this->editedSampleData());
+        $this->delete('/paintings/1');
 
         $this->assertDatabaseMissing("paintings", $this->sampleData());
     }

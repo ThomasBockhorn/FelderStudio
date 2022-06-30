@@ -95,8 +95,10 @@ class PaintingImagesController extends Controller
      * @param  \App\Models\PaintingImage  $paintingImages
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaintingImage $paintingImages)
+    public function destroy(PaintingImage $paintingImages, $id)
     {
-        //
+        $paintingImages = PaintingImage::findOrFail($id);
+
+        $paintingImages->delete();
     }
 }

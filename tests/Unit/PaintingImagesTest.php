@@ -100,6 +100,11 @@ class PaintingImagesTest extends TestCase
         $response->assertStatus(200);
     }
 
+
+    /**
+     * This test will see if a user can edit a painting image
+     * @return void
+     */
     public function test_to_see_if_a_user_can_edit_a_painting_image(): void
     {
         $this->createUser();
@@ -125,6 +130,31 @@ class PaintingImagesTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertDatabaseCount('painting_images', 1);
+    }
+
+    public function test_to_see_if_a_user_can_delete_a_painting_image()
+    {
+        $this->createUser();
+
+        $imageFile = UploadedFile::fake()->image('testImage.jpg');
+
+        $painting = Painting::factory(1)->create()->first();
+
+        $this->post(
+            '/painting-images',
+            ['filename' => $imageFile, 'painting_id' => $painting->id],
+            ['Accept' => 'application/json']
+        );
+
+        $response = $this->delete(
+            '/painting-images/1',
+            ['filename' => $imageFile, 'painting_id' => $painting->id],
+            ['Accept' => 'application/json']
+        );
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseMissing('painting_images', ['filename' => $imageFile, 'painting_id' => $painting->id]);
     }
 
 

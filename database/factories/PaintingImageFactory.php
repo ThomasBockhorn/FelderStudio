@@ -17,8 +17,8 @@ class PaintingImageFactory extends Factory
     public function definition()
     {
         return [
-            'filename' => $this->faker->image('public/images', 400,300, null,false),
-            'painting_id' => function(){
+            'filename' => $this->faker->image('public/storage/images', 400, 300, 'cats', 'false'),
+            'painting_id' => function () {
                 $factory = Factory::factoryForModel(\App\Models\Painting::class);
                 return $factory->create()->id;
             }

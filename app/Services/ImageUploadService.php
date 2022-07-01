@@ -6,6 +6,8 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Http\Requests\PaintingImagesRequest;
+use App\Models\PaintingImage;
+use Illuminate\Support\Facades\Storage;
 
 class ImageUploadService
 {
@@ -16,10 +18,13 @@ class ImageUploadService
      * @param String $location
      * @return void
      */
-    public function imageUpload(PaintingImagesRequest $request, string $location): void
+    public function imageUpload($image): void
     {
-        $image = time() . '.' . $request->filename->extension();
+        Storage::put('public/images/' . $image, $image);
+    }
 
-        $request->filename->move(public_path($location), $image);
+    public function imageDelete(PaintingImage $paintingImages): void
+    {
+        Storage::delete('public/images/' . $paintingImages->filename,);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\PaintingImage;
 use App\Services\ImageDatabaseService;
 use App\Services\ImageUploadService;
 
+
 class PaintingImagesController extends Controller
 {
     private ImageUploadService $fileService;
@@ -50,9 +51,9 @@ class PaintingImagesController extends Controller
      */
     public function store(PaintingImagesRequest $request)
     {
-        $this->databaseService->ImageReferenceToDatabase($request);
+        $importedImage = $this->databaseService->ImageReferenceToDatabase($request);
 
-        $this->fileService->imageUpload($request, 'images');
+        $this->fileService->imageUpload($importedImage);
     }
 
     /**
@@ -84,20 +85,22 @@ class PaintingImagesController extends Controller
      */
     public function update(PaintingImagesRequest $request)
     {
-        $this->databaseService->ImageReferenceToDatabaseUpdate($request);
+        $importedImage = $this->databaseService->ImageReferenceToDatabaseUpdate($request);
 
-        $this->fileService->imageUpload($request, 'images');
+        $this->fileService->imageUpload($importedImage);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PaintingImage  $paintingImages
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return void
      */
-    public function destroy(PaintingImage $paintingImages, $id)
+    public function destroy($id)
     {
         $paintingImages = PaintingImage::findOrFail($id);
+
+        $this->fileService->imageDelete($paintingImages);
 
         $paintingImages->delete();
     }

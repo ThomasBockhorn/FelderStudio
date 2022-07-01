@@ -25,29 +25,39 @@ class ImageDatabaseService
     /**
      * This method will load the painting image request to the database
      * @param PaintingImagesRequest $request
-     * @return void
+     * @return string
      */
-    public function ImageReferenceToDatabase(PaintingImagesRequest $request): void
+    public function ImageReferenceToDatabase(PaintingImagesRequest $request): string
     {
-        $this->paintingImage->filename = $request->filename;
+        $image = time() . '.' . $request->filename->extension();
+
+        $this->paintingImage->filename = $image;
 
         $this->paintingImage->painting_id = $request->painting_id;
 
         $this->paintingImage->save();
+
+        return $image;
     }
 
     /**
      * This function updates PaintingImage reference in database
      * @param PaintingImagesRequest $request
-     * @return void
+     * @return string
      */
     public function ImageReferenceToDatabaseUpdate(
         PaintingImagesRequest $request,
-    ): void
-    {
-        $paintingImage = $this->paintingImage->where('painting_id', $request->painting_id)->first();
-        $paintingImage->update([
-            "filename" => $request->filename
-        ]);
+    ): string {
+        if ($paintingImage = $this->paintingImage->where('painting_id', $request->painting_id)->first()) {
+            $image = time() . '.' . $request->filename->extension();
+
+            $paintingImage->filename = $image;
+
+            $paintingImage->painting_id = $request->painting_id;
+
+            $paintingImage->save();
+
+            return $image;
+        }
     }
 }

@@ -80,6 +80,6 @@ class PaintingTagController extends Controller
      */
     public function destroy(PaintingTag $paintingTag)
     {
-        //
+        $paintingTag->delete();
     }
 }

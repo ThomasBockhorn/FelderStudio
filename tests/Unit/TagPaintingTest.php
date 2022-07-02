@@ -55,6 +55,11 @@ class TagPaintingTest extends TestCase
         $this->assertDatabaseCount('painting_tags', 1);
     }
 
+
+    /**
+     * This test will see if a user can edit a tag
+     * @return void
+     */
     public function test_to_see_if_a_user_can_edit_a_tag(): void
     {
         $user = User::factory()->create();
@@ -70,6 +75,23 @@ class TagPaintingTest extends TestCase
         $response = $this->put('/painting-tag/1', ["category" => "TestCategory2", "painting_id" => 2]);
 
         $response->assertStatus(200);
+    }
+
+    public function test_to_see_if_a_user_can_delete_a_tag()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $painting = Painting::factory(1)->create()->first();
+
+        $this->post('/painting-tag/', ["category" => "TestCategory", "painting_id" => $painting->id]);
+
+        $response = $this->delete('/painting-tag/1');
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseCount('painting_tags', 0);
     }
 
 

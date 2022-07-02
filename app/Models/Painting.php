@@ -22,4 +22,13 @@ class Painting extends Model
     {
         return $this->hasMany(PaintingImage::class);
     }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function PaintingTag()
+    {
+        return $this->hasOne(PaintingTag::class);
+    }
 }

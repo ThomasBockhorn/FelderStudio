@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\PaintingImage;
+use App\Models\PaintingTag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         PaintingImage::factory(10)->create();
+        PaintingImage::factory(10)->create();
+        PaintingTag::factory(10)->create();
     }
 }

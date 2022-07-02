@@ -22,6 +22,11 @@ class TagPaintingTest extends TestCase
         $this->assertInstanceOf(PaintingTag::class, $paintingTag);
     }
 
+
+    /**
+     * This test will check to see if the painting tag index exists
+     * @return void
+     */
     public function test_to_see_if_painting_tag_index_route_exists()
     {
         $user = User::factory()->create();
@@ -29,6 +34,13 @@ class TagPaintingTest extends TestCase
         $this->actingAs($user)
             ->get('/painting-tag/')
             ->assertStatus(200);
+    }
+
+    public function test_to_see_if_database_has_ten_painting_tag_entries()
+    {
+        $this->seed();
+
+        $this->assertDatabaseCount('painting_tags', 10);
     }
 
 

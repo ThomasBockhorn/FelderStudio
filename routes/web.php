@@ -23,5 +23,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('/paintings',\App\Http\Controllers\PaintingController::class)->middleware(['auth']);
 Route::resource('/painting-images', \App\Http\Controllers\PaintingImagesController::class)->middleware(['auth']);
+Route::resource('/painting-tag', \App\Http\Controllers\PaintingTagController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';

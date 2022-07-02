@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Painting;
 use App\Models\PaintingTag;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -9,25 +10,24 @@ use Tests\TestCase;
 
 class TagPaintingTest extends TestCase
 {
-    use DatabaseMigrations;
+    use  DatabaseMigrations;
 
     /**
      * This test will see if a tag model exists
      * @return void
      */
-    public function test_to_see_if_tag_model_exists()
+    public function test_to_see_if_tag_model_exists(): void
     {
         $paintingTag = new PaintingTag();
 
         $this->assertInstanceOf(PaintingTag::class, $paintingTag);
     }
 
-
     /**
      * This test will check to see if the painting tag index exists
      * @return void
      */
-    public function test_to_see_if_painting_tag_index_route_exists()
+    public function test_to_see_if_painting_tag_index_route_exists(): void
     {
         $user = User::factory()->create();
 
@@ -36,11 +36,25 @@ class TagPaintingTest extends TestCase
             ->assertStatus(200);
     }
 
-    public function test_to_see_if_database_has_ten_painting_tag_entries()
+    /**
+     * This test will check to see if a tag can be added
+     * @return void
+     */
+    public function test_to_see_if_a_tag_can_be_added(): void
     {
-        $this->seed();
+        $user = User::factory()->create();
 
-        $this->assertDatabaseCount('painting_tags', 10);
+        $this->actingAs($user);
+
+        $category = "TestCategory";
+
+        $painting = Painting::factory(1)->create()->first();
+
+        $response = $this->post('/painting-tag/', ["category" => $category, "painting_id" => $painting->id]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseCount('painting_tags', 1);
     }
 
 

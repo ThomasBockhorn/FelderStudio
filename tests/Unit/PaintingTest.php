@@ -55,19 +55,6 @@ class PaintingTest extends TestCase
         $this->assertInstanceOf(Painting::class, $painting);
     }
 
-
-    /**
-     * This test will check if migration of the painting model works
-     * @return void
-     */
-    public function test_if_painting_database_table_has_10_entries(): void
-    {
-        $this->seed();
-
-        $this->assertDatabaseCount('paintings', 10);
-    }
-
-
     /**
      * This tests checks if the painting resource index works
      * @return void

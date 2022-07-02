@@ -132,7 +132,12 @@ class PaintingImagesTest extends TestCase
         $this->assertDatabaseCount('painting_images', 1);
     }
 
-    public function test_to_see_if_a_user_can_delete_a_painting_image()
+
+    /**
+     * This test will check to see if a user can delete a painting image
+     * @return void
+     */
+    public function test_to_see_if_a_user_can_delete_a_painting_image(): void
     {
         $this->createUser();
 

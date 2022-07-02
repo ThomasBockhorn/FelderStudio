@@ -35,7 +35,7 @@ class PaintingTagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        PaintingTag::create($request->all());
     }
 
     /**

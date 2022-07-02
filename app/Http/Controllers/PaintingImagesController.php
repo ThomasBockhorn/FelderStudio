@@ -85,9 +85,11 @@ class PaintingImagesController extends Controller
      */
     public function update(PaintingImagesRequest $request)
     {
-        $importedImage = $this->databaseService->ImageReferenceToDatabaseUpdate($request);
+        if ($paintingImage = PaintingImage::findOrFail($request->painting_id)) {
+            $importedImage = $this->databaseService->ImageReferenceToDatabaseUpdate($paintingImage, $request);
 
-        $this->fileService->imageUpload($importedImage);
+            $this->fileService->imageUpload($importedImage);
+        }
     }
 
     /**

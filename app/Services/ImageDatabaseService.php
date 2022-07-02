@@ -42,22 +42,23 @@ class ImageDatabaseService
 
     /**
      * This function updates PaintingImage reference in database
+     * @param PaintingImage $paintingImage
      * @param PaintingImagesRequest $request
      * @return string
      */
     public function ImageReferenceToDatabaseUpdate(
-        PaintingImagesRequest $request,
+        PaintingImage $paintingImage,
+        PaintingImagesRequest $request
     ): string {
-        if ($paintingImage = $this->paintingImage->where('painting_id', $request->painting_id)->first()) {
-            $image = time() . '.' . $request->filename->extension();
+        $image = time() . '.' . $request->filename->extension();
 
-            $paintingImage->filename = $image;
+        $paintingImage->filename = $image;
 
-            $paintingImage->painting_id = $request->painting_id;
+        $paintingImage->painting_id = $request->painting_id;
 
-            $paintingImage->save();
+        $paintingImage->save();
 
-            return $image;
-        }
+        return $image;
     }
+
 }

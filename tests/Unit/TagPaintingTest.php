@@ -46,15 +46,30 @@ class TagPaintingTest extends TestCase
 
         $this->actingAs($user);
 
-        $category = "TestCategory";
-
         $painting = Painting::factory(1)->create()->first();
 
-        $response = $this->post('/painting-tag/', ["category" => $category, "painting_id" => $painting->id]);
+        $response = $this->post('/painting-tag/', ["category" => "TestCategory", "painting_id" => $painting->id]);
 
         $response->assertStatus(200);
 
         $this->assertDatabaseCount('painting_tags', 1);
+    }
+
+    public function test_to_see_if_a_user_can_edit_a_tag(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $painting = Painting::factory(1)->create()->first();
+
+        $this->post('/painting-tag/', ["category" => "TestCategory", "painting_id" => $painting->id]);
+
+        $painting = Painting::factory(2)->create();
+
+        $response = $this->put('/painting-tag/1', ["category" => "TestCategory2", "painting_id" => 2]);
+
+        $response->assertStatus(200);
     }
 
 

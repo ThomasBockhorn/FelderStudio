@@ -109,18 +109,23 @@ class PaintingImagesTest extends TestCase
     {
         $this->createUser();
 
+        //creating imagefile
         $imageFile = UploadedFile::fake()->image('testImage.jpg');
 
+        //creating a painting entry
         $painting = Painting::factory(1)->create()->first();
 
+        //Posting a painting entry
         $this->post(
             '/painting-images',
             ['filename' => $imageFile, 'painting_id' => $painting->id],
             ['Accept' => 'application/json']
         );
 
+        //Uploading a second painting
         $imageFile2 = UploadedFile::fake()->image('testImage2.jpg');
 
+        //Editing the second with the first
         $response = $this->put(
             '/painting-images/1',
             ['filename' => $imageFile2, 'painting_id' => $painting->id],
@@ -141,16 +146,20 @@ class PaintingImagesTest extends TestCase
     {
         $this->createUser();
 
+        //create imageFile
         $imageFile = UploadedFile::fake()->image('testImage.jpg');
 
+        //create painting
         $painting = Painting::factory(1)->create()->first();
 
+        //Posting the data
         $this->post(
             '/painting-images',
             ['filename' => $imageFile, 'painting_id' => $painting->id],
             ['Accept' => 'application/json']
         );
 
+        //Now deleting the data
         $response = $this->delete(
             '/painting-images/1',
             ['filename' => $imageFile, 'painting_id' => $painting->id],

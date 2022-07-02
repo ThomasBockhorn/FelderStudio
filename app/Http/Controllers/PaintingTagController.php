@@ -69,7 +69,7 @@ class PaintingTagController extends Controller
      */
     public function update(Request $request, PaintingTag $paintingTag)
     {
-        //
+        $paintingTag->update($request->all());
     }
 
     /**

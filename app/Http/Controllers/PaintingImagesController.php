@@ -86,6 +86,8 @@ class PaintingImagesController extends Controller
     public function update(PaintingImagesRequest $request)
     {
         if ($paintingImage = PaintingImage::findOrFail($request->painting_id)) {
+            $this->fileService->imageDelete($paintingImage->filename);
+
             $importedImage = $this->databaseService->ImageReferenceToDatabaseUpdate($paintingImage, $request);
 
             $this->fileService->imageUpload($importedImage);
@@ -100,10 +102,10 @@ class PaintingImagesController extends Controller
      */
     public function destroy($id)
     {
-        $paintingImages = PaintingImage::findOrFail($id);
+        $paintingImage = PaintingImage::findOrFail($id);
 
-        $this->fileService->imageDelete($paintingImages);
+        $this->fileService->imageDelete($paintingImage->filename);
 
-        $paintingImages->delete();
+        $paintingImage->delete();
     }
 }

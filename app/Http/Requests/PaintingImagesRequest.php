@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed $filename
  * @property mixed $painting_id
  * @property mixed $id
+ * @property mixed $name
  */
 class PaintingImagesRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class PaintingImagesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "filename" => ["nullable", "file", "image"],
+            "filename" => ["nullable", "image", "max:1999"],
             "painting_id" => ["integer", "nullable"]
         ];
     }

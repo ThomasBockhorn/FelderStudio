@@ -4,26 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaintingImagesRequest;
 use App\Models\PaintingImage;
-use App\Services\ImageDatabaseService;
-use App\Services\ImageUploadService;
 use Illuminate\Support\Facades\Storage;
 
 
 class PaintingImagesController extends Controller
 {
-    private ImageUploadService $fileService;
-    private ImageDatabaseService $databaseService;
 
-
-    /**
-     * @param ImageUploadService $file
-     * @param ImageDatabaseService $databaseService
-     */
-    public function __construct(ImageUploadService $file, ImageDatabaseService $databaseService)
-    {
-        $this->fileService = $file;
-        $this->databaseService = $databaseService;
-    }
 
     /**
      * Display a listing of the resource.
@@ -58,7 +44,7 @@ class PaintingImagesController extends Controller
 
         $paintingImage->save();
 
-        Storage::put('public/images', $paintingImage->filename);
+        Storage::put('public/images', $request->filename);
     }
 
     /**
@@ -91,9 +77,9 @@ class PaintingImagesController extends Controller
     public function update(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
 
-        Storage::disk('public')->delete('public/images' . $request->filename->name);
-
         $paintingImageUpdate = $paintingImage->findOrFail($paintingImage->id);
+
+        Storage::delete('public/images/' . $paintingImageUpdate->filename);
 
         $paintingImageUpdate->filename = $request->filename->name;
 
@@ -101,7 +87,7 @@ class PaintingImagesController extends Controller
 
         $paintingImageUpdate->save();
 
-        Storage::put('public/images', $paintingImageUpdate->filename);
+        Storage::put('public/images', $request->filename);
     }
 
     /**

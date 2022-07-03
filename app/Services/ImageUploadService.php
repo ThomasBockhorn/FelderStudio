@@ -1,29 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
-
 namespace App\Services;
 
-use App\Http\Requests\PaintingImagesRequest;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
 class ImageUploadService
 {
 
     /**
-     * This method with upload an image file
-     * @param PaintingImagesRequest $request
-     * @param String $location
+     * This service will upload a file to a directory the user specified
+     * @param String $directory
+     * @param String $filename
      * @return void
      */
-    public function imageUpload($image): void
+    public function ImageUploadServiceProvider(string $directory, File $filename): void
     {
-        Storage::put('public/images/' . $image, $image);
-    }
-
-    public function imageDelete($image): void
-    {
-        Storage::delete('public/images/' . $image,);
+        Storage::put($directory, $filename);
     }
 }

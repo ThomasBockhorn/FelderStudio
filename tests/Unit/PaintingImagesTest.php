@@ -7,6 +7,7 @@ use App\Models\PaintingImage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PaintingImagesTest extends TestCase
@@ -98,6 +99,8 @@ class PaintingImagesTest extends TestCase
         $this->assertDatabaseCount('painting_images', 1);
 
         $response->assertStatus(200);
+
+        Storage::disk('public')->delete('public/images' . $imageFile->name);
     }
 
 
@@ -135,6 +138,9 @@ class PaintingImagesTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertDatabaseCount('painting_images', 1);
+
+        Storage::disk('public')->delete('public/images' . $imageFile2);
+
     }
 
 

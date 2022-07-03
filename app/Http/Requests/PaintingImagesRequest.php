@@ -30,7 +30,7 @@ class PaintingImagesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "filename" => ["image", "nullable", "max:1999", "mimes:jpeg,png,jpg,gif,svg"],
+            "filename" => ["nullable", "file", "image"],
             "painting_id" => ["integer", "nullable"]
         ];
     }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed $filename
  * @property mixed $project_id
  * @property mixed $painting_id
+ * @property mixed $id
  */
 class PaintingImage extends Model
 {

@@ -6,6 +6,7 @@ use App\Http\Requests\PaintingImagesRequest;
 use App\Models\PaintingImage;
 use App\Services\ImageDatabaseService;
 use App\Services\ImageUploadService;
+use Illuminate\Support\Facades\Storage;
 
 
 class PaintingImagesController extends Controller
@@ -49,11 +50,15 @@ class PaintingImagesController extends Controller
      * @param PaintingImagesRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PaintingImagesRequest $request)
+    public function store(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
-        $importedImage = $this->databaseService->ImageReferenceToDatabase($request);
+        $paintingImage->filename = $request->filename->name;
 
-        $this->fileService->imageUpload($importedImage);
+        $paintingImage->painting_id = $request->painting_id;
+
+        $paintingImage->save();
+
+        Storage::put('public/images', $paintingImage->filename);
     }
 
     /**
@@ -83,15 +88,20 @@ class PaintingImagesController extends Controller
      * @param PaintingImagesRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(PaintingImagesRequest $request)
+    public function update(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
-        if ($paintingImage = PaintingImage::findOrFail($request->painting_id)) {
-            $this->fileService->imageDelete($paintingImage->filename);
 
-            $importedImage = $this->databaseService->ImageReferenceToDatabaseUpdate($paintingImage, $request);
+        Storage::disk('public')->delete('public/images' . $request->filename->name);
 
-            $this->fileService->imageUpload($importedImage);
-        }
+        $paintingImageUpdate = $paintingImage->findOrFail($paintingImage->id);
+
+        $paintingImageUpdate->filename = $request->filename->name;
+
+        $paintingImageUpdate->painting_id = $request->painting_id;
+
+        $paintingImageUpdate->save();
+
+        Storage::put('public/images', $paintingImageUpdate->filename);
     }
 
     /**
@@ -104,7 +114,7 @@ class PaintingImagesController extends Controller
     {
         $paintingImage = PaintingImage::findOrFail($id);
 
-        $this->fileService->imageDelete($paintingImage->filename);
+        Storage::disk('public')->delete('public/images' . $paintingImage->filename);
 
         $paintingImage->delete();
     }

@@ -151,34 +151,33 @@ class PaintingImagesTest extends TestCase
      * This test will check to see if a user can delete a painting image
      * @return void
      */
-    /** public function test_to_see_if_a_user_can_delete_a_painting_image(): void
-     * {
-     * $this->createUser();
-     *
-     * //create imageFile
-     * $imageFile = UploadedFile::fake()->image('testImage.jpg');
-     *
-     * //create painting
-     * $painting = Painting::factory(1)->create()->first();
-     *
-     * //Posting the data
-     * $this->post(
-     * '/painting-images',
-     * ['filename' => $imageFile, 'painting_id' => $painting->id],
-     * ['Accept' => 'application/json']
-     * );
-     *
-     * //Now deleting the data
-     * $response = $this->delete(
-     * '/painting-images/1',
-     * ['filename' => $imageFile, 'painting_id' => $painting->id],
-     * ['Accept' => 'application/json']
-     * );
-     *
-     * $response->assertStatus(200);
-     *
-     * $this->assertDatabaseMissing('painting_images', ['filename' => $imageFile, 'painting_id' => $painting->id]);
-     * }**/
+    public function test_to_see_if_a_user_can_delete_a_painting_image(): void
+    {
+        $this->createUser();
+
+        $imageFile = UploadedFile::fake()->image('testImage.jpg');
+
+        $painting = Painting::factory(1)->create()->first();
+
+        $this->post(
+            '/painting-images/',
+            ['filename' => $imageFile, 'painting_id' => $painting->id],
+            ['Accept' => 'application/json']
+        );
+
+        $response = $this->delete(
+            '/painting-images/1',
+            [],
+            ['Accept' => 'application/json']
+        );
+
+        $this->assertDatabaseCount('painting_images', 0);
+
+        $response->assertStatus(200);
+
+        Storage::assertMissing('public/images/' . $imageFile->hashName());
+
+    }
 
 
 }

@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 /**
  * @property mixed $filename
  * @property mixed $painting_id
- * @property mixed $id
- * @property mixed $name
  */
 class PaintingImagesRequest extends FormRequest
 {

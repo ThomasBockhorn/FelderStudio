@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Illuminate\Http\File;
+use App\Http\Requests\PaintingImagesRequest;
 use Illuminate\Support\Facades\Storage;
 
 class ImageUploadService
@@ -14,8 +14,8 @@ class ImageUploadService
      * @param String $filename
      * @return void
      */
-    public function ImageUploadServiceProvider(string $directory, File $filename): void
+    public function ImageUploadServiceProvider(string $directory, PaintingImagesRequest $request): void
     {
-        Storage::put($directory, $filename);
+        Storage::put($directory, $request->hashName());
     }
 }

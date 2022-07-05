@@ -38,13 +38,13 @@ class PaintingImagesController extends Controller
      */
     public function store(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
-        $paintingImage->filename = $request->filename->name;
+        $paintingImage->filename = Storage::putFile('public/images', $request->filename);
 
         $paintingImage->painting_id = $request->painting_id;
 
         $paintingImage->save();
 
-        Storage::put('public/images', $request->filename);
+        //Storage::put('public/images', $request->filename);
     }
 
     /**
@@ -79,15 +79,13 @@ class PaintingImagesController extends Controller
 
         $paintingImageUpdate = $paintingImage->findOrFail($paintingImage->id);
 
-        Storage::delete('public/images/' . $paintingImageUpdate->filename);
+        Storage::delete($paintingImageUpdate->filename);
 
-        $paintingImageUpdate->filename = $request->filename->name;
+        $paintingImageUpdate->filename = Storage::putFile('public/images/', $request->filename);
 
         $paintingImageUpdate->painting_id = $request->painting_id;
 
         $paintingImageUpdate->save();
-
-        Storage::put('public/images', $request->filename);
     }
 
     /**
@@ -98,10 +96,11 @@ class PaintingImagesController extends Controller
      */
     public function destroy($id)
     {
-        $paintingImage = PaintingImage::findOrFail($id);
 
-        Storage::disk('public')->delete('public/images' . $paintingImage->filename);
+        $paintingImageEntry = PaintingImage::findOrFail($id);
 
-        $paintingImage->delete();
+        Storage::delete($paintingImageEntry->filename);
+
+        $paintingImageEntry->delete();
     }
 }

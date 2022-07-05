@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaintingImagesRequest;
 use App\Models\PaintingImage;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ImageServices;
 
 
 class PaintingImagesController extends Controller
@@ -38,13 +38,8 @@ class PaintingImagesController extends Controller
      */
     public function store(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
-        $paintingImage->filename = Storage::putFile('public/images', $request->filename);
+        ImageServices::ImageAddService($request, $paintingImage);
 
-        $paintingImage->painting_id = $request->painting_id;
-
-        $paintingImage->save();
-
-        //Storage::put('public/images', $request->filename);
     }
 
     /**
@@ -76,16 +71,7 @@ class PaintingImagesController extends Controller
      */
     public function update(PaintingImagesRequest $request, PaintingImage $paintingImage)
     {
-
-        $paintingImageUpdate = $paintingImage->findOrFail($paintingImage->id);
-
-        Storage::delete($paintingImageUpdate->filename);
-
-        $paintingImageUpdate->filename = Storage::putFile('public/images/', $request->filename);
-
-        $paintingImageUpdate->painting_id = $request->painting_id;
-
-        $paintingImageUpdate->save();
+        ImageServices::ImageUpdateService($request, $paintingImage);
     }
 
     /**
@@ -96,11 +82,6 @@ class PaintingImagesController extends Controller
      */
     public function destroy($id)
     {
-
-        $paintingImageEntry = PaintingImage::findOrFail($id);
-
-        Storage::delete($paintingImageEntry->filename);
-
-        $paintingImageEntry->delete();
+        ImageServices::ImageDeleteService($id);
     }
 }
